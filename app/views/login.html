@@ -1,0 +1,30 @@
+<div class="row" id="bodyPanel">
+    <div class="col-xs-10 col-xs-offset-1">
+        <h3>Create An Account With Us!</h3>
+
+        <form id="form"  autocomplete="on">               
+            <div class ="row">
+                <!-- basic info -->
+                <div class="col-xs-12">
+                    <input id="fName" class="valid" type="text" ng-model="fName" placeholder="First Name" autofocus required>
+                    <label class="sr-only" for="fName" visible="false"> First Name </label>
+
+                    <input id="lName" type="text" ng-model="lName" placeholder="Last Name" required>
+                    <label class="sr-only" for="lName" visible="false"> Last Name </label>
+
+                    <input id="eMail" type="email" ng-model="eMail" placeholder="E-mail" required>
+                    <label class="sr-only" for="eMail" visible="false"> E-mail </label>
+                    
+                    <!-- passwords -->
+                    <input id="first" type="password" ng-model="first" placeholder="Password">
+                    <label class="sr-only" for="first" visible="false"> Password </label>
+
+                    <input id="second" type="password" ng-model="second" placeholder="Confirm Password">
+                    <label class="sr-only" for="second" visible="false"> Confirm Password </label>
+
+                    <input type="submit" ng-click="login()"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="row" id="bodyPanel" style="padding:2em">
+    <div class="row" id="{{vm.event.eName}}">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3> {{event.eName}} </h3>
+            </div>
+            <div class="col-xs-12">
+                <p class="col-xs-10">Event Type: {{event.eType}}</p>
+            </div>
+
+            <div class="col-xs-12">
+                <p class="col-xs-10">Host: {{event.eHost}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="col-xs-10">Start Date: {{event.eStartDate}}</p>
+            </div>
+            <div class="col-xs-6">
+                <p class="col-xs-10">Start Time: {{event.eStartTime}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="col-xs-10">End Date: {{event.eEndDate}}</p>
+            </div>
+            <div class="col-xs-6">
+                <p class="col-xs-10">End Time: {{event.eEndTime}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-10">
+                <p>Location: {{event.autocomplete}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-10">
+                <p>Discription: {{event.eDiscription}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-10">
+                <p>Add Guest: {{event.eGuest}}</p>
+            </div>
+
+            <div class="col-xs-12">
+
+                <div class="col-xs-10 buttonCase">
+                    <button data-bind="click: EditEvent"> Edit&nbspEvent</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

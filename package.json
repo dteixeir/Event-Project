@@ -1,0 +1,12 @@
+{
+    "name": "node-api",
+    "main": "server.js",
+    "dependencies": {
+        "express": "~4.0.0",
+        "mongoose": "~4.4.14",
+        "body-parser": "~1.0.1",
+        "method-override": "~2.3.5",
+        "lodash": "~4.11.1",
+        "node-restful": "~0.2.5"
+    }
+}
