@@ -10,7 +10,7 @@
         };
         
         function getEvents() {
-            return $http.get('/events');
+            return $http.get('http://localhost:8080/api/' + 'events');
         };
         
         function getEvent (eventId) {

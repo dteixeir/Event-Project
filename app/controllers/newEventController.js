@@ -62,9 +62,12 @@
         function init() {
             eventFactory.getEvents()
                 .success(function(events) {
+                    console.log(events.name);
                     vm.stuffs = events;
                 })
                 .error(function(response) {
+                    var events = eventFactory.getEvents();
+                    console.log(events);
                     console.log(response);
                 });
         }

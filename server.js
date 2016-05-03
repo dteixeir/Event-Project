@@ -1,10 +1,12 @@
 // BASE SET UP
 //=================================================================
 // call packages needed
-var express     = require('express');
-var app         = express();
-var bodyParser  = require('body-parser');
-var Event       = require('./app/models/event')
+var express         = require('express');
+var app             = express();
+var bodyParser      = require('body-parser');
+var Event           = require('./app/models/event');
+//var methodOverride  = require('method-override');
+var _               = require('lodash');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://dan:dan@ds011732.mlab.com:11732/eventapi');
@@ -14,8 +16,18 @@ mongoose.connect('mongodb://dan:dan@ds011732.mlab.com:11732/eventapi');
 // this lets you get data from a POST!!!!!
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
+//app.use(methodOverride('X-HTTP-Method-Override')); - still not sure what this does!!!
 
 var port = process.env.PORT || 8080;    //sets the port to be used
+
+//CORS Support (CORS - Cross-Origin Resource Sharing)
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*'); // allows access from everywhere - BEWARE!
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 
 
 // ROUTES FOR API
