@@ -10,11 +10,11 @@
         };
         
         function getEvents() {
-            return $http.get('http://localhost:8080/api/' + 'events');
+            return $http.get('http://localhost:8080/api/' + 'event');
         };
         
         function getEvent (eventId) {
-            return $http.get('/events/' + eventId);
+            return $http.get('http://localhost:8080/api/event/' + eventId);
         };
         
         return factory; 
