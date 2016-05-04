@@ -9,7 +9,7 @@
         var eventId = $routeParams.id;
         $scope.event = null;
         
-         vm.CheckStuff = CheckStuff;
+        vm.CheckStuff = CheckStuff;
         vm.EditEvent = EditEvent;
         vm.AddGuest = AddGuest;
         vm.init = init;
@@ -27,8 +27,8 @@
         
         init();
         
-        
-        var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
+        // screw firebase!
+        // var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
         
         vm.typeListOptions = [
             "Birthday Party",
@@ -39,8 +39,6 @@
             "Reunion",
             "Wedding"
         ];
-            
-       
 
         function CheckStuff() {
             if(CheckValid()) {
@@ -56,7 +54,7 @@
                 var eGuestList = "";
                 var eGuestName = "";
 
-
+                // this needs to reroute to the service to create the object
                 db.child('events').child(eName).set({eName: eName, eType: eType, eHost: eHost, eStartDate: eStartDate,
                 eEndDate: eEndDate, eStartTime: eStartTime, eEndTime: eEndTime, eLocation: eLocation, 
                 eDiscription: eDiscription, eGuestList: eGuestList, eGuestName: eGuestName });
@@ -74,18 +72,7 @@
                 event.eGuestList = event.eGuestList + ", " + guestName;
                 db.child("events/" + event.eName ).update(event);
             }       
-        };
-
-        // on document ready fetch from the db - call back that uses function onCall
-        /*
-        function init() {
-            return db.child('events').orderByChild('eName').on('value', function(snapshot) {
-                vm.stuffs = snapshot.val();
-                $scope.$apply();
-            });
-        }*/
-        
-        
+        };    
         
         function print(eventInfo) {
             console.log('hi');

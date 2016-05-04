@@ -5,7 +5,7 @@
         
         function LoginController($scope) {
             var vm = $scope;
-            var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
+            //var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
             
             // functions 
             vm.first = "BlueSubie213!";

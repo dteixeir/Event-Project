@@ -5,7 +5,7 @@
         
     function NewEventController($scope, eventFactory) {
         var vm = $scope;
-        var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
+        //var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
         
         vm.typeListOptions = [
             "Birthday Party",
@@ -39,14 +39,27 @@
                 var eGuestList = "";
                 var eGuestName = "";
 
-                db.child('events').child(eName).set({eName: eName, eType: eType, eHost: eHost, eStartDate: eStartDate,
-                eEndDate: eEndDate, eStartTime: eStartTime, eEndTime: eEndTime, eLocation: eLocation, 
-                eDiscription: eDiscription, eGuestList: eGuestList, eGuestName: eGuestName });
+/*
+                event = {
+                    name: vm.eName,
+                    type: vm.eType,
+                    host: vm.eHost,
+                    startDate: vm.eStartDate,
+                    startTime: vm.eStartTime,
+                    endDate: vm.eEndDate,
+                    endTime: vm.eEndTime,
+                    location: vm.eLocation,
+                    discription: vm.eDiscription,
+                    guestList: vm.eGuestList
+                }*/
+                
+                
+               // eventFactory.createEvent(event);
             }
         }
 
         function EditEvent(event) {
-            window.location.href = "#/newEvent/"+ event.id;
+            window.location.href = "#/editEvent/"+ event._id;
         }
 
         function AddGuest(event) {
@@ -62,24 +75,12 @@
         function init() {
             eventFactory.getEvents()
                 .success(function(events) {
-                    console.log(events.name);
                     vm.stuffs = events;
                 })
                 .error(function(response) {
-                    var events = eventFactory.getEvents();
-                    console.log(events);
                     console.log(response);
                 });
         }
-        
-        /* 
-        This was omitted due to being able to create and use the mini REST API
-        function init() {
-            return db.child('events').orderByChild('eName').on('value', function(snapshot) {
-                vm.stuffs = snapshot.val();
-                $scope.$apply();
-            });
-        }*/
         
         function print(eventInfo) {
             console.log(eventInfo);
