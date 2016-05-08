@@ -1,9 +1,9 @@
 (function () {
     angular.module('eventApp')
-        .controller('NewEventController', NewEventController);
+        .controller('ViewEventsController', ViewEventsController);
        
         
-    function NewEventController($scope, eventFactory) {
+    function ViewEventsController($scope, eventFactory) {
         var vm = $scope;
         //var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
         

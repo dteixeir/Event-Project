@@ -1,16 +1,16 @@
 (function () {
     angular.module('eventApp')
-        .controller('LoginController', LoginController);
+        .controller('CreateAccountController', CreateAccountController);
        
         
-        function LoginController($scope) {
-            var vm = $scope;
-            //var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
+        function CreateAccountController($scope) {
+            var vm = $scope;  
             
-            // functions 
+            // variables 
             vm.first = "BlueSubie213!";
             vm.second = "BlueSubie213!";
             
+            //functions
             vm.submit = submit;
             vm.validatePassword = validatePassword;
             vm.login = login;
@@ -20,7 +20,7 @@
         function accountCreate() {
             if(validatePassword(true)){
                 var user = creatUserObj();
-                db.child('users').child(user.escapeEmail).set(user);
+                
             }
         };
            
@@ -75,17 +75,6 @@
                  accountCreate();
             }
         };
-        
-        function escapeEmailAddress (email){
-            if (!email) 
-                return false
-
-            // Replace '.' (not allowed in a Firebase key) with ',' (not allowed in an email address)
-            email = email.toLowerCase();
-            email = email.replace(/\./g, ',');
-            return email;
-        };
-        
         
         function validatePassword () {
 
@@ -144,7 +133,7 @@
             }
 
             return false;
-        };
+        }
       
     }  
 }) ();

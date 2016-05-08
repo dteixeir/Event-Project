@@ -5,16 +5,16 @@
         .config(function($routeProvider) {
             $routeProvider
                 .when('/', {
-                    controller: 'LoginController',
-                    templateUrl: 'app/views/login.html'
+                    controller: 'CreateAccountController',
+                    templateUrl: 'app/CreateAccount/CreateAccount.html'
                 })
                 .when('/newEvent', {
                     controller: 'NewEventController',
-                    templateUrl: 'app/views/newEvent.html'
+                    templateUrl: 'app/newEvent/newEvent.html'
                 })
-                .when('/editEvent/:id', {
-                    controller: 'EditEventController',
-                    templateUrl: 'app/views/editEvent.html'
+                .when('/viewEvents', {
+                    controller: 'ViewEventsController',
+                    templateUrl: 'app/viewEvents/viewEvents.html'
                 })
                 /*.otherwise({
                     redirectTo: '/'

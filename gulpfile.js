@@ -10,6 +10,7 @@ gulp.task('default', function() {
 	.pipe(uglify())
 	.pipe(gulp.dest('build/min_js'));
 
+	console.log('starting - gulp watch');
 	gulp.watch('sass/**/*.scss',['styles']);
 	gulp.watch('js/**/*.js', ['uglify'])
 });

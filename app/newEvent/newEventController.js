@@ -1,9 +1,9 @@
 (function () {
     angular.module('eventApp')
-        .controller('EditEventController', EditEventController);
+        .controller('NewEventController', NewEventController);
        
         
-    function EditEventController($scope, $routeParams, eventFactory) {
+    function NewEventController($scope, $routeParams, eventFactory) {
         var vm = $scope;
         
         var eventId = $routeParams.id;
@@ -12,20 +12,7 @@
         vm.CheckStuff = CheckStuff;
         vm.EditEvent = EditEvent;
         vm.AddGuest = AddGuest;
-        vm.init = init;
         vm.print = print;
-        
-        function init() {
-            eventFactory.getEvent(eventId)
-                .success(function(response) {
-                    $scope.event = response;
-                })
-                .error(function(response) {
-                  console.log(response);  
-                });
-        }
-        
-        init();
         
         // screw firebase!
         // var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
@@ -55,9 +42,10 @@
                 var eGuestName = "";
 
                 // this needs to reroute to the service to create the object
+                /*
                 db.child('events').child(eName).set({eName: eName, eType: eType, eHost: eHost, eStartDate: eStartDate,
                 eEndDate: eEndDate, eStartTime: eStartTime, eEndTime: eEndTime, eLocation: eLocation, 
-                eDiscription: eDiscription, eGuestList: eGuestList, eGuestName: eGuestName });
+                eDiscription: eDiscription, eGuestList: eGuestList, eGuestName: eGuestName });*/
             }
         }
 
@@ -70,11 +58,11 @@
 
             if(guestName) {
                 event.eGuestList = event.eGuestList + ", " + guestName;
-                db.child("events/" + event.eName ).update(event);
+                //db.child("events/" + event.eName ).update(event);
             }       
         };    
         
-        function print(eventInfo) {
+        function print() {
             console.log('hi');
         }
     }  
