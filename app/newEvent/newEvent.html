@@ -1,54 +1,60 @@
-<div class="bodyPanel headerPanel">
-    <h3>Let's Create an Event!</h3>
-</div>
 
 <div class="row" id="bodyPanel">
+    <h3 class="center-text">Let's Create an Event!</h3>
     <div class="col-xs-12">
         <div class="col-xs-12">
-            <input class="fullWidthInput" {{event.name}} placeholder='Event Name' />
+            <input class="fullWidthInput" type='text' ng-model="name" {{event.name}} placeholder='Event Name' autofocus autocomplete="on" />
         </div>
         <div class="col-xs-12">
-            <input class="fullWidthInput" {{event.type}} placeholder='Event Type' />
-        </div>
-
-        <div class="col-xs-12">
-            <input class="fullWidthInput" {{event.host}} placeholder='Host' />
+            <input class="fullWidthInput" {{event.type}} ng-model="type" placeholder='Event Type' autocomplete="on" />
         </div>
 
         <div class="col-xs-12">
-            <input class="fullWidthInput" {{event.startDate}} placeholder='Start Date' />
+            <input class="fullWidthInput" type='text' ng-model="host" {{event.host}} placeholder='Host' autocomplete="on" />
+        </div>
+
+        <div class="col-xs-12">
+            <input class="fullWidthInput" type='date' ng-model="startDate" {{event.startDate}} placeholder='Start Date' autocomplete="on" />
         </div>
 
         <div class="col-xs-12">
             <div class="col-xs-6">
-                <input class="fullWidthInput" {{event.startTime}} placeholder='Start Time' />
+                <input class="fullWidthInput" type="time" ng-model="startTime" {{event.startTime}} placeholder='Start Time' autocomplete="on" />
             </div>
             <div class="col-xs-6">
-                <input class="fullWidthInput" {{event.endTime}} placeholder='End Time' />
+                <input class="fullWidthInput" type="time" ng-model="endTime" {{event.endTime}} placeholder='End Time' autocomplete="on" />
             </div>
         </div>
 
         <div class="col-xs-12">
-            <input class="fullWidthInput" {{event.location}} placeholder='Location' />
+            <input class="fullWidthInput" type="text" ng-model="location" {{event.location}} placeholder='Location' autocomplete="on" />
         </div>
 
         <div class="col-xs-12">
-            <input class="fullWidthInput" {{event.discription}} placeholder='Discription' />
+            <input class="fullWidthInput" type="text" ng-model="discription" {{event.discription}} placeholder='Discription' autocomplete="on" />
         </div>
     </div>
 </div>
 
 <div class="headerPanel" id="bodyPanel">
     <div class="row col-xs-12">
-        <h4>Add Guests</h4>
-        <div >
-            <input class="col-xs-9" {{event.guestList}} placeholder='add Guest'/>
-            <button type="button" class="btn btn-primary col-xs-2" role="button" ng-click="print();">Add</button>
-        </div>
-        
-        
+        <h4>Guest List</h4>
+
         <div class="row col-xs-12">
-            <h5>Current Guest List</h5>
+            <ul>
+                <li ng-repeat="guest in guests">
+                    {{guest.name}}
+                </li>
+            </ul>
+        </div>
+
+        <div>
+            <input class="col-xs-9" ng-model="guest" {{event.guestList}} placeholder='add Guest' />
+            <button type="button" class="btn btn-primary col-xs-2" role="button" ng-click="addGuest();">Add</button>
         </div>
     </div>
+</div>
+
+<div class="bodyPanel">
+    <submit class="btn btn-primary col-xs-10 center-button" type="submit" ng-click="createEvent();">Create Event!</submit>
 </div>

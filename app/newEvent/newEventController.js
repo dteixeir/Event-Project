@@ -9,10 +9,13 @@
         var eventId = $routeParams.id;
         $scope.event = null;
         
+        // variables
+        vm.guest = '';
+        
+        //functions
         vm.CheckStuff = CheckStuff;
-        vm.EditEvent = EditEvent;
-        vm.AddGuest = AddGuest;
-        vm.print = print;
+        vm.addGuest = addGuest;
+        vm.createEvent = createEvent;
         
         // screw firebase!
         // var db = new Firebase('https://glowing-fire-9589.firebaseio.com');
@@ -25,6 +28,13 @@
             "Movie Night",
             "Reunion",
             "Wedding"
+        ];
+        
+         vm.guests = [
+            {name:"jimmy"},
+            {name:"john"},
+            {name:'hillary'},
+            {name:'davey'}
         ];
 
         function CheckStuff() {
@@ -49,22 +59,31 @@
             }
         }
 
-        function EditEvent(event) {
-            window.location.href = "editEvent.html";
-        }
-
-        function AddGuest(event) {
-            var guestName = $('#events').find('.guestName').val();
-
-            if(guestName) {
-                event.eGuestList = event.eGuestList + ", " + guestName;
-                //db.child("events/" + event.eName ).update(event);
-            }       
-        };    
+        function addGuest() {
+            console.log(vm.guest);
+            vm.guests.push({name: vm.guest});
+            vm.guest = '';
+        };   
         
-        function print() {
-            console.log('hi');
-        }
+        function createEvent() {
+            var event = {
+                name: vm.name,
+                startDate: vm.startDate,
+                hostedBy: vm.host,
+                startTime: vm.startTime,
+                endTime: vm.endTime,
+                location: vm.location,
+                type: vm.type,
+                discription: vm.discription,
+                guestList: vm.guests
+            };
+            
+            eventFactory.createEvent(event)
+            .success(function(stuffs) {
+                    console.log(stuffs);
+                })
+        } 
+        
     }  
     
 }) ();

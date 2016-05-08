@@ -28,7 +28,6 @@ var EventSchema = new mongoose.Schema({
     },
     
     type: String, 
-    endDate: String, 
     endTime: String,
     discription: String,
     guestList: String
