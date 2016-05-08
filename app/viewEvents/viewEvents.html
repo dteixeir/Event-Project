@@ -1,49 +1,59 @@
-<div class="row" >
+<div class="row">
     <div id="bodyPanel" ng-repeat="event in stuffs" ng-click="print(event)">
         <div class="row" id="{{event.eName}}">
             <div class="row">
                 <div class="col-xs-12">
                     <h3>{{event.name}}</h3>
                 </div>
-                <div class="col-xs-12">
-                    <p>Event Type: {{event.type}}</p>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <p> <b> Event&nbspType: </b> </p>
+                    </div>
+                    <div class="col-xs-9">
+                        <p>{{event.type}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <p> <b> Host: </b> </p>
+                    </div>
+                    <div class="col-xs-9">
+                        <p>{{event.hostedBy}}</p>
+                    </div>
                 </div>
 
-                <div class="col-xs-12">
-                    <p>Host: {{event.hostedBy}}</p>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3">
+                    <p> <b> Event Date: </b></p>
+                </div>
+                <div class="col-xs-9">
+                    <p>{{event.startDate | date: 'shortDate'}}</p>
+                </div>
+            </div>
+             <div class="row">
+                <div class="col-xs-9 col-xs-offset-3">
+                    <p><b>From:</b> {{event.startTime | date: 'shortTime'}} <b>- To:</b> {{event.endTime | date: 'shortTime'}}</p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-6">
-                    <p>Event Date: {{event.startDate}}</p>
+                <div class="col-xs-3">
+                    <p> <b> Location: </b> </p>
+                </div>
+                <div class="col-xs-9">
+                    <p> {{event.location}}</p>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-xs-6">
-                    <p>Start Time: {{event.startTime}}</p>
+                <div class="col-xs-3">
+                    <p><b>Discription: </b></p>
                 </div>
-                <div class="col-xs-6">
-                    <p>End Time: {{event.endTime}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-6">
-                    <p>Location: {{event.location}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-10">
-                    <p>Discription: {{event.discription}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-10">
-                    <p>Add Guest: {{event.guest}}</p>
+                <div class="col-xs-9">
+                    <p>{{event.discription}}</p>
                 </div>
             </div>
         </div>
