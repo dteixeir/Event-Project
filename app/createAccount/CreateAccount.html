@@ -2,27 +2,32 @@
     <div class="col-xs-10 col-xs-offset-1">
         <h3>Create An Account With Us!</h3>
 
-        <form id="form"  autocomplete="on">               
+        <form name="form"  autocomplete="on">               
             <div class ="row">
                 <!-- basic info -->
                 <div class="col-xs-12">
-                    <input id="fName" class="valid" type="text" ng-model="fName" placeholder="First Name" autofocus required>
+                    <input type="text" name="fName" ng-blur="hadFocus('fName')" ng-model="user.fName" placeholder="First Name" autofocus 
+                           ng-class="{'error': check(user.fName, 'fName') == 2, 'success': check(user.fName, 'fName')  == 1 }" required>
                     <label class="sr-only" for="fName" visible="false"> First Name </label>
 
-                    <input id="lName" type="text" ng-model="lName" placeholder="Last Name" required>
+                    <input type="text" ng-blur="hadFocus('lName')" ng-model="user.lName" placeholder="Last Name"
+                           ng-class="{'error': check(user.lName, 'lName') == 2, 'success': check(user.lName, 'lName') == 1 }" required>
                     <label class="sr-only" for="lName" visible="false"> Last Name </label>
 
-                    <input id="eMail" type="email" ng-model="eMail" placeholder="E-mail" required>
+                    <input id="eMail" type="email" ng-model="user.email" placeholder="E-mail" 
+                           ng-class="{'error': check(user.email, 'email') == 2, 'success': check(user.email, 'email') == 1 }" required>
                     <label class="sr-only" for="eMail" visible="false"> E-mail </label>
                     
                     <!-- passwords -->
-                    <input id="first" type="password" ng-model="first" placeholder="Password">
+                    <input ng-blur="hadFocus('pass1')" type="password" ng-model="user.first" placeholder="Password"
+                           ng-class="{'error': checkPass('pass1'), 'success': checkPass('pass1')}"  required>
                     <label class="sr-only" for="first" visible="false"> Password </label>
 
-                    <input id="second" type="password" ng-model="second" placeholder="Confirm Password">
+                    <input ng-blur="hadFocus('pass2')" type="password" ng-model="user.second" placeholder="Confirm Password" 
+                           ng-class="{'error': checkPass('pass2') == 2, 'success': checkPass('pass2') == 1}" required>
                     <label class="sr-only" for="second" visible="false"> Confirm Password </label>
 
-                    <input type="submit" ng-click="login()"/>
+                    <input type="submit" ng-click="login();"/>
                 </div>
             </div>
         </form>

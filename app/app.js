@@ -1,5 +1,5 @@
 (function () {
-    angular.module('eventApp', ['ngRoute']);
+    angular.module('eventApp', ['ngRoute','ngMessages']);
     
     angular.module('eventApp')
         .config(function($routeProvider) {

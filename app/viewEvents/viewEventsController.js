@@ -19,11 +19,15 @@
             
         vm.CheckStuff = CheckStuff;
         vm.EditEvent = EditEvent;
-        vm.AddGuest = AddGuest;
+        vm.CreateEventPage = CreateEventPage;
         vm.init = init;
         vm.print = print;
         
         init();
+        
+        function CreateEventPage() {
+            window.location.href = "#/newEvent/";
+        }
 
         function CheckStuff() {
             if(CheckValid()) {
@@ -61,15 +65,16 @@
         function EditEvent(event) {
             window.location.href = "#/editEvent/"+ event._id;
         }
+        /*
 
         function AddGuest(event) {
             var guestName = $('#events').find('.guestName').val();
 
             if(guestName) {
                 event.eGuestList = event.eGuestList + ", " + guestName;
-                db.child("events/" + event.eName ).update(event);
+                //db.child("events/" + event.eName ).update(event);
             }
-        }
+        }*/
 
         // on document ready fetch from the db - call back that uses function onCall
         function init() {
