@@ -19,12 +19,12 @@
                     <label class="sr-only" for="eMail" visible="false"> E-mail </label>
                     
                     <!-- passwords -->
-                    <input ng-blur="hadFocus('pass1')" type="password" ng-model="user.first" placeholder="Password"
-                           ng-class="{'error': checkPass('pass1'), 'success': checkPass('pass1')}"  required>
+                    <input ng-blur="hadFocus('first')" type="password" ng-model="user.first" placeholder="Password"
+                           ng-class="{'error': checkPass('first'), 'success': checkPass('first')}"  required>
                     <label class="sr-only" for="first" visible="false"> Password </label>
 
-                    <input ng-blur="hadFocus('pass2')" type="password" ng-model="user.second" placeholder="Confirm Password" 
-                           ng-class="{'error': checkPass('pass2') == 2, 'success': checkPass('pass2') == 1}" required>
+                    <input ng-blur="hadFocus('second')" type="password" ng-model="user.second" placeholder="Confirm Password" 
+                           ng-class="{'error': checkPass('second') == 2, 'success': checkPass('second') == 1}" required>
                     <label class="sr-only" for="second" visible="false"> Confirm Password </label>
 
                     <input type="submit" ng-click="login();"/>
