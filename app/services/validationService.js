@@ -18,8 +18,12 @@
                 return;
 
             switch (name) {
+                case 'host':
+                case 'type':
+                case 'name':
                 case 'lName':
                 case 'fName':
+                
                     if (variable.length >= 4) {
                         return 1;
                     } else {
@@ -27,12 +31,29 @@
                     }
 
                 case 'email':
-                    var re = /\S+@\S+\.\S+/;
-                    if (re.test(variable)) {
+                    var reg = /\S+@\S+\.\S+/;
+                    if (reg.test(variable)) {
                         return 1;
                     } else {
                         return 2;
                     }
+                    
+                case 'startDate':
+                    var now = new Date();      
+                    if (variable < now) {
+                        return 2;
+                    } else {
+                        return 1;
+                    }
+                 
+                /*
+                case 'location':
+                    var reg = /^[a-zA-Z\s\d\/]*\d[a-zA-Z\s\d\/]*$/;
+                    if (reg.test(variable)) {
+                        return 1;
+                    }else{
+                       return 2;
+                    }*/
             }
         }
 

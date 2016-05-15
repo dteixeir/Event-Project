@@ -3,7 +3,7 @@
         .controller('NewEventController', NewEventController);
 
 
-    function NewEventController($scope, $routeParams, eventFactory) {
+    function NewEventController($scope, $routeParams, eventFactory, validationService) {
         var vm = $scope;
 
         var eventId = $routeParams.id;
@@ -13,64 +13,64 @@
         vm.guest = '';
 
         //functions
-        vm.CheckStuff = CheckStuff;
         vm.addGuest = addGuest;
         vm.createEvent = createEvent;
+        vm.validate = validate;
+        //vm.answerChoice = null;
 
-        vm.typeListOptions = [
-            "Birthday Party",
-            "Conference",
-            "Convention",
-            "Dinner",
-            "Movie Night",
-            "Reunion",
-            "Wedding"
-        ];
+        vm.event = {
+            name: '', host: '', type: '', startDate: '', startTime: '',
+            endTime: '', location: '', discription: '', guests: []
+        };
 
-        vm.guests = [
-            { name: "jimmy" },
-        ];
-
-        function CheckStuff() {
-            if (CheckValid()) {
-                var eName = eName;
-                var eType = eType;
-                var eHost = eHost;
-                var eStartDate = eStartDate;
-                var eEndDate = eEndDate;
-                var eStartTime = eStartTime;
-                var eEndTime = eEndTime;
-                var autocomplete = eLocation;
-                var eDiscription = eDiscription;
-                var eGuestList = "";
-                var eGuestName = "";
-            }
+        vm.validEvent = {
+            name: false, host: false, type: false, startDate: false,
+            startTime: false, endTime: false, location: false, discription: false, guests: false
         }
-
+        
         function addGuest() {
-            console.log(vm.guest);
-            vm.guests.push({ name: vm.guest });
+            vm.event.guests.push({ name: vm.guest });
             vm.guest = '';
         };
 
         function createEvent() {
-            var event = {
-                name: vm.name,
-                startDate: vm.startDate,
-                hostedBy: vm.host,
-                startTime: vm.startTime,
-                endTime: vm.endTime,
-                location: vm.location,
-                type: vm.type,
-                discription: vm.discription,
-                guestList: vm.guests
-            };
-
-            eventFactory.createEvent(event)
+            eventFactory.createEvent(vm.event)
                 .success(function () {
                     window.location.href = "#/viewEvents/";
                 });
         }
+
+        function validate(variable, name) {
+            if (!variable)
+                return;
+            var valid = validationService.check(variable, name)
+            if (valid == 1) {
+                vm.validEvent[name] = true;
+            } else {
+                vm.validEvent[name] = false;
+            }
+            return valid;
+        }
+
+        /*
+        function answer(ans) {
+            vm.answerChoice = ans;
+        }
+ 
+        vm.guests = [];
+        
+        vm.question = {
+        questionText: "Is the event one day?",
+        choices: [{
+                id: 1,
+                text: "yes",
+                isUserAnswer: true
+            }, {
+                id: 2,
+                text: "no",
+                isUserAnswer: false
+            }]
+        }; */
 
     }
 

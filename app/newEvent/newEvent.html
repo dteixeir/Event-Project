@@ -1,38 +1,71 @@
-
 <div class="row" id="bodyPanel">
     <h3 class="center-text">Let's Create an Event!</h3>
     <div class="col-xs-12">
         <div class="col-xs-12">
-            <input class="fullWidthInput" type='text' ng-model="name" {{event.name}} placeholder='Event Name' autofocus autocomplete="on" />
+            <input class="fullWidthInput" type='text' ng-model="event.name" {{event.name}} placeholder='Event Name' autofocus autocomplete="on" 
+                   ng-class="{'error': validate(event.name, 'name') == 2, 'success': validate(event.name, 'name')  == 1 }" required/>
         </div>
         <div class="col-xs-12">
-            <input class="fullWidthInput" {{event.type}} ng-model="type" placeholder='Event Type' autocomplete="on" />
+            <input list="eventTypes" class="fullWidthInput" {{event.type}} ng-model="event.type" placeholder='Event Type' autocomplete="on"
+                   ng-class="{'error': validate(event.type, 'type') == 2, 'success': validate(event.type, 'type')  == 1 }" required/>
+            <datalist id="eventTypes">
+                <option value="Birthday Party" ng-selected="selected"></option>
+                <option value="Conference"></option>
+                <option value="Convention"></option>
+                <option value="Dinner"></option>
+                <option value="Movie Night"></option>
+                <option value="Reunion"></option>
+                <option value="Wedding"></option>
+            </datalist>
         </div>
 
         <div class="col-xs-12">
-            <input class="fullWidthInput" type='text' ng-model="host" {{event.host}} placeholder='Host' autocomplete="on" />
+            <input class="fullWidthInput" type='text' ng-model="event.host" {{event.host}} placeholder='Event Host' autocomplete="on" required
+                   ng-class="{'error': validate(event.host, 'host') == 2, 'success': validate(event.host, 'host')  == 1 }" />
+        </div>
+
+        <!-- 
+        <div class="col-xs-12">
+            {{question.questionText}}
         </div>
 
         <div class="col-xs-12">
-            <input class="fullWidthInput" type='date' ng-model="startDate" {{event.startDate}} placeholder='Start Date' autocomplete="on" />
+            <label class="col-xs-6" ng-repeat="choice in question.choices">
+                <div >
+                    {{choice.text}}
+                    <input class="col-xs-6" type="radio" name="response" ng-click="answer(choice.isUserAnswer)" value="true" />
+                </div>
+            </label>
+        </div>
+        -->
+
+        <div class="col-xs-12">
+            <input class="fullWidthInput" type='date' ng-model="event.startDate" {{event.startDate}} placeholder='Start Date' autocomplete="on"
+                   ng-class="{'error': validate(event.startDate, 'startDate') == 2, 'success': validate(event.startDate, 'startDate')  == 1 }" required/>
         </div>
 
         <div class="col-xs-12">
             <div class="col-xs-6">
-                <input class="fullWidthInput" type="time" ng-model="startTime" {{event.startTime}} placeholder='Start Time' autocomplete="on" />
+                <b>From:</b> 
+                <input class="fullWidthInput" type="time" ng-model="event.startTime" {{event.startTime}} placeholder='Start Time' autocomplete="on" 
+                       ng-class="{'error': validate(event.startTime, 'startTime') == 2, 'success': validate(event.startTime, 'startTime')  == 1 }" required/>
             </div>
             <div class="col-xs-6">
-                <input class="fullWidthInput" type="time" ng-model="endTime" {{event.endTime}} placeholder='End Time' autocomplete="on" />
+                <b>To:</b> 
+                <input class="fullWidthInput" type="time" ng-model="event.endTime" {{event.endTime}} placeholder='End Time' autocomplete="on" 
+                       ng-class="{'error': validate(eventuser.endTime, 'endTime') == 2, 'success': validate(event.endTime, 'endTime')  == 1 }" required/>
             </div>
         </div>
+    </div>
 
-        <div class="col-xs-12">
-            <input class="fullWidthInput" type="text" ng-model="location" {{event.location}} placeholder='Location' autocomplete="on" />
-        </div>
+    <div id="locationField" class="col-xs-12">
+        <input id="autocomplete" class="fullWidthInput" type="text" ng-model="event.location" {{event.location}} placeholder='Location' autocomplete="on" 
+               onFocus="geolocate()"  ng-class="{'error': validate(event.location, 'location') == 2, 'success': validate(event.location, 'location')  == 1 }" required/>
+    </div>
 
-        <div class="col-xs-12">
-            <input class="fullWidthInput" type="text" ng-model="discription" {{event.discription}} placeholder='Discription' autocomplete="on" />
-        </div>
+    <div class="col-xs-12">
+        <input class="fullWidthInput" type="text" ng-model="event.discription" {{event.discription}} placeholder='Discription' 
+               autocomplete="on"/>
     </div>
 </div>
 
@@ -42,7 +75,7 @@
 
         <div class="row col-xs-12">
             <ul>
-                <li ng-repeat="guest in guests">
+                <li ng-repeat="guest in event.guests">
                     {{guest.name}}
                 </li>
             </ul>
@@ -50,7 +83,7 @@
 
         <div>
             <input class="col-xs-9" ng-model="guest" {{event.guestList}} placeholder='add Guest' />
-            <button type="button" class="btn btn-primary col-xs-2 col-xs-offset-1" role="button" ng-click="addGuest();">Add</button>
+            <button type="button" ng-disabled="guest.length == 0" class="btn btn-primary col-xs-2 col-xs-offset-1" role="button" ng-click="addGuest();">Add</button>
         </div>
     </div>
 </div>
@@ -60,3 +93,63 @@
         <submit class="btn btn-primary col-xs-10 col-xs-offset-1" type="submit" ng-click="createEvent();">Create Event!</submit>
     </div>
 </div>
+
+    <script>
+      // This example displays an address form, using the autocomplete feature
+      // of the Google Places API to help users fill in the information.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+      var placeSearch, autocomplete;
+      var componentForm = {
+        street_number: 'short_name',
+        route: 'long_name',
+        locality: 'long_name',
+        administrative_area_level_1: 'short_name',
+        country: 'long_name',
+        postal_code: 'short_name'
+      };
+
+      function initAutocomplete() {
+        // Create the autocomplete object, restricting the search to geographical
+        // location types.
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+            {types: ['geocode']});
+
+        // When the user selects an address from the dropdown, populate the address
+        // fields in the form.
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        // Get the place details from the autocomplete object.
+        var place = autocomplete.getPlace();
+
+        // Get each component of the address from the place details
+        // and fill the corresponding field on the form.
+        for (var i = 0; i < place.address_components.length; i++) {
+          var addressType = place.address_components[i].types[0];
+        }
+      }
+
+      // Bias the autocomplete object to the user's geographical location,
+      // as supplied by the browser's 'navigator.geolocation' object.
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+    </script>
