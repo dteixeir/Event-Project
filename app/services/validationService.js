@@ -10,6 +10,8 @@
             checkPass: checkPass
         };
 
+        var startDateTime = null;
+
         return service;
 
 
@@ -23,7 +25,7 @@
                 case 'name':
                 case 'lName':
                 case 'fName':
-                
+
                     if (variable.length >= 4) {
                         return 1;
                     } else {
@@ -37,23 +39,38 @@
                     } else {
                         return 2;
                     }
-                    
-                case 'startDate':
-                    var now = new Date();      
+
+                case 'startDateTime':
+                    startDateTime = variable;
+                    var now = new Date();
                     if (variable < now) {
                         return 2;
                     } else {
                         return 1;
                     }
-                 
-                /*
+
+                case 'endDateTime':
+                    if (variable > startDateTime) {
+                        return 1;
+                    } else {
+                        return 2;
+                    }
+
+                case 'guests':
+                    if (variable.length) {
+                        return 1;
+                    } else {
+                        return 2;
+                    }
+
+                
                 case 'location':
-                    var reg = /^[a-zA-Z\s\d\/]*\d[a-zA-Z\s\d\/]*$/;
-                    if (reg.test(variable)) {
+                    //var reg = /^\d*[a-zA-Z\s]*\,\s[a-zA-Z]*\,[a-zA-Z\s][a-zA-Z]{2}\,\s[a-zA-Z]*\s[a-zA-Z]*\S/gmi;
+                    if (variable.length > 1) {
                         return 1;
                     }else{
                        return 2;
-                    }*/
+                    }
             }
         }
 

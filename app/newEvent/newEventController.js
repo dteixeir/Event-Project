@@ -5,8 +5,7 @@
 
     function NewEventController($scope, $routeParams, eventFactory, validationService) {
         var vm = $scope;
-
-        var eventId = $routeParams.id;
+        var submitTried = false;
         $scope.event = null;
 
         // variables
@@ -16,28 +15,39 @@
         vm.addGuest = addGuest;
         vm.createEvent = createEvent;
         vm.validate = validate;
+        vm.validateFields = validateFields;
+        vm.print = print;
         //vm.answerChoice = null;
+        
+        function printMe(){
+            console.log('hi!');
+        }
 
         vm.event = {
-            name: '', host: '', type: '', startDate: '', startTime: '',
-            endTime: '', location: '', discription: '', guests: []
+            name: '', host: '', type: '', startDateTime: '',
+            endDateTime: '', location: '', discription: '', guests: []
         };
 
         vm.validEvent = {
-            name: false, host: false, type: false, startDate: false,
-            startTime: false, endTime: false, location: false, discription: false, guests: false
+            name: false, host: false, type: false, startDateTime: false, endDateTime: false,
+            location: false, discription: false, guests: false
         }
-        
+
         function addGuest() {
             vm.event.guests.push({ name: vm.guest });
             vm.guest = '';
         };
 
         function createEvent() {
-            eventFactory.createEvent(vm.event)
-                .success(function () {
-                    window.location.href = "#/viewEvents/";
-                });
+            var check = validateFields()
+            if (check) {
+                eventFactory.createEvent(vm.event)
+                    .success(function () {
+                        window.location.href = "#/viewEvents/";
+                    });
+            } else {
+                submitTried = true;
+            }
         }
 
         function validate(variable, name) {
@@ -50,6 +60,15 @@
                 vm.validEvent[name] = false;
             }
             return valid;
+        }
+
+        function validateFields() {
+            for (i in vm.validEvent) {
+                if (!vm.validEvent[i]) {
+                    return;
+                }
+            }
+            console.log('hah!');
         }
 
         /*
@@ -71,7 +90,6 @@
                 isUserAnswer: false
             }]
         }; */
-
     }
 
 })();
